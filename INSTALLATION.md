@@ -6,7 +6,7 @@
    Builds installieren. Die geprüfte Quellenbasis nennt Iris 1.11.6, Fabric
    Loader 0.19.3 und Sodium 0.9.2+mc26.3. Das bestätigt keine Veröffentlichung
    genau dieser Binärpakete. Andere Versionskombinationen sind ungetestet.
-3. `Warm-Fantasy-Vanilla-Plus-0.1.0-alpha.1.zip` **unentpackt** in den Ordner
+3. `Warm-Fantasy-Vanilla-Plus-0.1.0-alpha.2.zip` **unentpackt** in den Ordner
    `shaderpacks` des gewählten Spielprofils kopieren. Standardpfade:
    Windows `%APPDATA%\.minecraft\shaderpacks`, Linux
    `~/.minecraft/shaderpacks`, macOS
@@ -23,7 +23,7 @@ Das Pack definiert drei Presets. Abweichende Einstellungen kennzeichnet Iris
 nativ als **Custom**; es gibt kein viertes festes Preset und keine zusätzliche
 Konfigurationsmod. Im geprüften Iris-Quellstand speichert Iris die Optionen als
 `shaderpacks/<Packdateiname>.txt`, bei einer ZIP also beispielsweise
-`Warm-Fantasy-Vanilla-Plus-0.1.0-alpha.1.zip.txt` neben der ZIP. Ein umbenanntes
+`Warm-Fantasy-Vanilla-Plus-0.1.0-alpha.2.zip.txt` neben der ZIP. Ein umbenanntes
 Release kann deshalb andere gespeicherte Optionen verwenden.
 
 Alle Optionen gehören zu jedem Preset. Ein Presetwechsel setzt auch individuelle

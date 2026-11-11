@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.0-alpha.2 — 2026-11-11
+
+- Startfehler `final.fsh: undefined variable RGBA16F` behoben: Die
+  `colortex0Format`-Angabe steht nun als Iris-Metadatum im Blockkommentar.
+- Künstliche `RGBA16F`-Definition aus dem Compile-Test entfernt. Der gemeldete
+  Fehler wurde ohne diese Definition reproduziert; die Regression prüft die
+  echte, unveränderte Shaderquelle in allen drei Dimensionen.
+- Kein neuer bestätigter Minecraft-Laufzeittest; weitere Integration bleibt offen.
+
 ## 0.1.0-alpha.1 — 2026-11-11
 
 - Eigenständige Iris-Forward-Pipeline mit einem Final-Pass und gemeinsamen

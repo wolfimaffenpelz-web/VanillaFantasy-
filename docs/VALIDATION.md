@@ -1,13 +1,13 @@
 # Lokaler Testbericht
 
-Datum: 11.11.2026. Version: 0.1.0-alpha.1. Recherchierte Zielbasis:
+Datum: 11.11.2026. Version: 0.1.0-alpha.2. Recherchierte Zielbasis:
 Minecraft 26.3 / Iris 1.11.6, Commit
 `671a5c87747d33983d7ed659461a64f46dfcb1f0` / Sodium 0.9.2+mc26.3.
 
 ## Tatsächlich ausgeführte Prüfungen
 
 - Python 3.12.14; PyOpenGL 3.1.10 und NumPy 2.5.4.
-- 11 automatisierte Struktur-/Konfigurations-/Build-Testfälle.
+- 12 automatisierte Struktur-/Konfigurations-/Build-Testfälle.
 - 672 echte generische Compile-/Link-Prüfungen: 42 Programmpaare in 16
   Konfigurationen, einschließlich aller Dimensionen und Presets.
 - GLSL-Numerik-/Renderprüfungen für Lichtlevel, Schattenvergleich, Wasser,
@@ -29,6 +29,16 @@ Material-Include-Guard und einem Passdefine. Diese wurde korrigiert und ist
 jetzt durch einen Strukturtest abgedeckt. Der Terrain-Test prüft zusätzlich
 Texturausgabe und Alpha-Cutout statt ausschließlich erfolgreiches Linken.
 
+## Regression aus dem Minecraft-Fehlerbericht
+
+Der gemeldete Startfehler `undefined variable RGBA16F` wurde ohne künstliches
+Test-Define im generischen Compiler reproduziert. Die ursprüngliche Testhilfe
+hatte den fehlenden GLSL-Bezeichner verdeckt. Sie ist entfernt. Die
+Formatdirektive steht jetzt im von Iris dokumentierten Blockkommentar; der
+Regressionstest prüft ihren Erhalt für Iris und ihre Entfernung aus dem für
+GLSL ausführbaren Code in allen drei Dimensionen. Die vollständige Compile-/
+Renderprüfung läuft ohne zusätzliche Formatdefinitionen.
+
 ## Aussagegrenzen
 
 **Nicht ausgeführt:** Iris-AST-Transformation, Minecraft-Start, Sodium-
@@ -43,5 +53,5 @@ manuellen Matrix in TESTING.md bleiben offen.
 
 ## Gebautes Artefakt
 
-`Warm-Fantasy-Vanilla-Plus-0.1.0-alpha.1.zip`, 64163 Bytes, 114 ZIP-Einträge.
-SHA256: `64679c7bb1f0afac72eef891ab9cdaeeddf30a2b41d976d80b328706aeec19b1`.
+`Warm-Fantasy-Vanilla-Plus-0.1.0-alpha.2.zip`, 64221 Bytes, 114 ZIP-Einträge.
+SHA256: `3198dcac7a2a091771abe0ac3dd999a66133290acdfd2bb0ad1687e7882c7a8f`.

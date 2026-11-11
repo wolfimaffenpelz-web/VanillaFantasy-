@@ -34,8 +34,11 @@ EGL-Kontext ist ein Testfehler, kein stiller Skip. Die CI installiert diese
 Pakete und führt dieselben Prüfungen aus. Nvidia-/andere Treiber müssen separat
 im Spiel getestet werden.
 
-`common.py` erweitert Pack-Includes, ersetzt numerische Optionen und definiert
-den von Iris bereitgestellten Formatbezeichner `RGBA16F`. Die GLSL-Präprozessor-
+`common.py` erweitert Pack-Includes und ersetzt numerische Optionen. Es ergänzt
+keine GLSL-Konstanten. Formatnamen wie `RGBA16F` sind Iris-Metadaten innerhalb
+von Blockkommentaren, keine eingebauten GLSL-Bezeichner. Ein Regressionstest
+prüft, dass diese Direktive für Iris erhalten bleibt und nicht als ausführbarer
+GLSL-Code oder künstlich injiziertes Test-Define erscheint. Die GLSL-Präprozessor-
 Zweige wertet der echte Compiler aus. Das Skript emuliert weder Iris-Attribute
 noch die Iris-AST-Transformation, Blendzustände oder Minecraft-Framebuffer.
 
