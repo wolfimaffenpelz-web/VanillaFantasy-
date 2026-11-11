@@ -25,12 +25,12 @@ vec3 wfCelestial(vec3 color, vec3 direction) {
     vec3 moonDir = wfMoonDir();
     float sunDot = dot(direction, sunDir);
     float moonDot = dot(direction, moonDir);
-    float sunRadius = 0.006;
-    float moonRadius = 0.007;
+    float sunRadius = 0.030 * SUN_SIZE;
+    float moonRadius = 0.035 * MOON_SIZE;
     float sunEdge = cos(sunRadius);
     float aa = max(fwidth(sunDot), 0.0000001);
     float sunDisc = smoothstep(sunEdge - aa, sunEdge + aa, sunDot);
-    color = mix(color, vec3(1.5, 1.18, 0.76), sunDisc * (1.0 - rainStrength));
+    color = mix(color, vec3(5.0, 3.8, 2.1) * SUN_INTENSITY, sunDisc * (1.0 - rainStrength));
     vec3 right = wfNormalize(cross(moonDir, vec3(0.0, 1.0, 0.0)));
     if (dot(right, right) < 0.1) right = vec3(1.0, 0.0, 0.0);
     vec3 up = wfNormalize(cross(right, moonDir));
@@ -46,8 +46,8 @@ vec3 wfCelestial(vec3 color, vec3 direction) {
         vec3 moon = mix(vec3(0.016, 0.021, 0.034), vec3(0.47, 0.57, 0.75), lit);
         color = mix(color, moon, edge * (1.0 - rainStrength));
     }
-    color += CELESTIAL_GLOW * (vec3(0.08, 0.045, 0.015) * pow(max(sunDot, 0.0), 1024.0)
-            + vec3(0.008, 0.012, 0.025) * pow(max(moonDot, 0.0), 1024.0)) * (1.0 - rainStrength);
+    color += CELESTIAL_GLOW * (vec3(0.50, 0.28, 0.10) * pow(max(sunDot, 0.0), 96.0)
+            + vec3(0.025, 0.035, 0.065) * pow(max(moonDot, 0.0), 384.0)) * (1.0 - rainStrength);
 #endif
     return color;
 }

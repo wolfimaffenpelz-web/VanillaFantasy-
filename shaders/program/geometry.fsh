@@ -20,8 +20,17 @@ in vec4 wfColor;
 in vec3 wfPosition;
 in vec3 wfNormal;
 flat in int wfMaterial;
+#if WATER_BIOME_BLEND > 0
+/* DRAWBUFFERS:012 */
+#else
 /* DRAWBUFFERS:0 */
+#endif
 void main() {
+#if WATER_BIOME_BLEND > 0
+    // Opaque or nearer non-water surfaces erase stale water metadata.
+    gl_FragData[1] = vec4(0.0);
+    gl_FragData[2] = vec4(0.0);
+#endif
     vec4 c = wfColor;
     vec4 surfaceTexture = vec4(1.0);
 #if WF_TEXTURED == 1
@@ -35,8 +44,18 @@ void main() {
     vec3 linearColor = wfLinear(c.rgb);
 #if WF_WATER == 1
     if (wfMaterial == 100) {
-        vec4 water = wfWater(wfPosition, wfNormalize(wfNormal), wfColor.rgb,
-                             surfaceTexture.rgb, wfLm);
+        vec3 tintLinear, tintResponse;
+        vec3 faceNormal = wfNormalize(wfNormal);
+        vec4 water = wfWaterSurface(wfPosition, faceNormal, wfColor.rgb,
+                                    surfaceTexture.rgb, wfLm, tintLinear, tintResponse);
+#if WATER_BIOME_BLEND > 0
+        float face = abs(faceNormal.y) > 0.5 ? 1.0 : (abs(faceNormal.x) > 0.5 ? 2.0 : 3.0);
+        // Linear view depth retains useful precision in half float and does
+        // not depend on a translucent draw writing Minecraft's depth buffer.
+        float viewDepth = max(-(gbufferModelView * vec4(wfPosition, 1.0)).z, 0.0001);
+        gl_FragData[1] = vec4(tintLinear, viewDepth);
+        gl_FragData[2] = vec4(tintResponse * water.a * (1.0 - wfFogAmount(wfPosition)), face);
+#endif
         water.rgb = wfFog(water.rgb, wfPosition);
         gl_FragData[0] = water;
         return;

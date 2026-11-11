@@ -1,7 +1,8 @@
 {
+  "shaderpack_version": "0.1.0-alpha.3",
   "generic_gl": "4.5 (Compatibility Profile) Mesa 25.0.7-2+deb13u1",
   "renderer": "llvmpipe (LLVM 19.1.7, 256 bits)",
-  "program_variants": 672,
+  "program_variants": 756,
   "configurations": [
     "Default",
     "Performance",
@@ -18,7 +19,9 @@
     "Toggle_HAND_LIGHT",
     "Toggle_CLOUDS",
     "Toggle_WATER_WAVES",
-    "Toggle_WATER_REFLECTIONS"
+    "Toggle_WATER_REFLECTIONS",
+    "Toggle_WATER_BIOME_BLEND",
+    "Toggle_SUN_GLARE"
   ],
   "dimensions": [
     "Overworld",
@@ -30,6 +33,8 @@
     1440
   ],
   "numeric_tests": "passed",
+  "appearance_tests": "passed",
+  "water_mrt_and_biome_filter_tests": "passed",
   "iris_transformer_tested": false,
   "minecraft_runtime_tested": false,
   "rtx2080_benchmarked": false

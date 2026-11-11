@@ -1,7 +1,7 @@
 # Warm Fantasy Vanilla+
 
 Eigenständiges Iris-Shaderpack für eine warme, gut lesbare Vanilla+-Spielwelt.
-Ziel: Minecraft Java 26.3, Fabric, Iris und Sodium. Entwicklungsstand: **0.1.0-alpha.2**.
+Ziel: Minecraft Java 26.3, Fabric, Iris und Sodium. Entwicklungsstand: **0.1.0-alpha.3**.
 
 Die Schnittstelle wird gegen Iris **1.11.6**, Zweig `26.3`, Revision
 `671a5c87747d33983d7ed659461a64f46dfcb1f0` entwickelt. Eine im Spiel
@@ -24,7 +24,13 @@ Hindernisse. Keine SSR, volumetrischen Wolken oder farbige Lichtausbreitung.
 | --- | --- | --- | --- | --- | --- |
 | Performance | 48 Blöcke / 1024 | 1 Sample | einfache Wellen, Himmel | 0,4 | aus |
 | Balanced (Standard) | 80 / 2048 | 4 Samples | zusätzliche Wellen, Glanz | 0,7 | aus |
-| Quality | 128 / 4096 | 9 Samples | breiterer Lichtreflex | 1,0 | an |
+| Quality | 128 / 4096 | 9 Samples | etwas kräftigere Glanzlichter | 1,0 | an |
+
+Sonne und Mond sind seit Alpha 3 deutlich größer. Sichtbare Sonne erzeugt einen
+abschaltbaren warmen Blend-Effekt; Tageslicht und Schatten sind kräftiger.
+Wasser ist satter und deckender, Wasserfälle behalten mehr Fließtextur ohne
+helle Spiegelstreifen. Wasser-Biomübergänge werden in Balanced über 2 und in
+Quality über 4 Blöcke geglättet; Performance deaktiviert diesen Zusatzpfad.
 
 Alle Profile verwenden 2D-Wolken. Individuelle Änderungen erscheinen nativ als
 **Custom**. Profile setzen sämtliche Packoptionen zurück; Balanced entspricht
@@ -39,6 +45,8 @@ auswählen. Beim Eigenbau erzeugt `python3 scripts/build.py` die Datei unter
 
 ## Verifikationsstatus
 
+Benutzerfeedback aus einem Spieltest von Alpha 2 liegt vor. Die visuellen
+Änderungen in Alpha 3 benötigen eine erneute Sichtprüfung im Spiel.
 Automatisierte Struktur-/Konfigurationstests, generische OpenGL-Kompilierung und
 synthetische Render-/Numeriktests sind vorhanden. Diese bestätigen **keinen**
 erfolgreichen Iris-Start. Die Abnahmekriterien zur tatsächlichen Kompatibilität,

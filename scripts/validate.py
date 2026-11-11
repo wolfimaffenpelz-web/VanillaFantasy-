@@ -16,6 +16,9 @@ class Structure(unittest.TestCase):
             comments=re.findall(r'/\*(.*?)\*/',text,re.S)
             directive_lines=[line.strip() for comment in comments for line in comment.splitlines()]
             self.assertEqual(directive_lines.count('const int colortex0Format = RGBA16F;'),1)
+            for index in (1,2):
+                self.assertEqual(directive_lines.count(f'const int colortex{index}Format = RGBA16F;'),1)
+                self.assertIn(f'const vec4 colortex{index}ClearColor = vec4(0.0, 0.0, 0.0, 0.0);',text)
             executable=re.sub(r'/\*.*?\*/|//[^\n]*','',text,flags=re.S)
             self.assertNotRegex(executable,r'\bRGBA16F\b')
             self.assertEqual(text,expand(path),'compile helper must not inject format constants')
@@ -130,12 +133,22 @@ class Structure(unittest.TestCase):
         props=properties(SHADERS/'shaders.properties')
         fixed={'oldLighting','oldHandLight','clouds','sun','moon','stars','screen','sliders'}
         for key,value in props.items():
-            self.assertTrue(key in fixed or key.startswith(('screen.','profile.','uniform.float.')),key)
+            self.assertTrue(key in fixed or key.startswith(('screen.','profile.','uniform.float.','blend.')),key)
+            if key.startswith('blend.'):
+                self.assertRegex(key,r'^blend\.gbuffers_[a-z_]+\.colortex[012]$')
+                if key=='blend.gbuffers_water.colortex0':
+                    self.assertEqual(value,'SRC_ALPHA ONE_MINUS_SRC_ALPHA ONE ONE_MINUS_SRC_ALPHA')
+                else:
+                    self.assertEqual(value,'off')
             if key in {'oldLighting','oldHandLight','sun','moon','stars'}:
                 self.assertIn(value,{'true','false'},key)
         self.assertIn(props['clouds'],{'off','fast','fancy'})
         self.assertEqual(props['uniform.float.wfHeldLight'],
                          'smooth(91, max(heldBlockLightValue, heldBlockLightValue2), 0.12, 0.20)')
+        from generate_entrypoints import GEOMETRY
+        expected={f'blend.gbuffers_{name}.colortex{index}' for name in GEOMETRY for index in (1,2)}
+        expected.add('blend.gbuffers_water.colortex0')
+        self.assertEqual({k for k in props if k.startswith('blend.')},expected)
         for file in ('block.properties','item.properties'):
             seen=set()
             for key,value in properties(SHADERS/file).items():
