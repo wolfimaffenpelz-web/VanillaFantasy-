@@ -33,7 +33,7 @@ def compile_program(vertex, fragment, label):
         GL.glShaderSource(shader, text)
         GL.glCompileShader(shader)
         if not GL.glGetShaderiv(shader, GL.GL_COMPILE_STATUS):
-            raise AssertionError(f'{label}: {GL.glGetShaderInfoLog(shader).decode()}')
+            raise AssertionError(f'{label}, stage {stage}: {GL.glGetShaderInfoLog(shader).decode()}')
         GL.glAttachShader(program, shader)
         shaders.append(shader)
     GL.glLinkProgram(program)

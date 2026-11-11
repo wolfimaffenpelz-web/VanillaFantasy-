@@ -26,7 +26,9 @@ class Structure(unittest.TestCase):
             self.assertEqual(len(values), len(set(values)), name)
             texts = '\n'.join(p.read_text() for p in SHADERS.rglob('*')
                               if p.suffix in ('.glsl', '.fsh', '.vsh'))
-            self.assertGreater(len(re.findall(r'\b' + name + r'\b', texts)), 1, name)
+            # These const values are consumed by Iris, rather than GLSL code.
+            if name not in {'ambientOcclusionLevel', 'shadowMapResolution', 'shadowDistance'}:
+                self.assertGreater(len(re.findall(r'\b' + name + r'\b', texts)), 1, name)
         for profile, assignments in profiles().items():
             for name, value in assignments.items():
                 self.assertIn(name, opts, profile)

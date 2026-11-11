@@ -2,4 +2,18 @@
 #define WF_OPTIONS
 #define BRIGHTNESS 1.0 // [0.8 1.0 1.2 1.4]
 #define SATURATION 1.08 // [0.9 1.0 1.08 1.16]
+#define NIGHT_BRIGHTNESS 1.0 // [0.6 0.8 1.0 1.2 1.5]
+#define CAVE_BRIGHTNESS 1.0 // [0.6 0.8 1.0 1.2 1.5]
+#define SUN_INTENSITY 1.0 // [0.6 0.8 1.0 1.2]
+#define MOON_INTENSITY 1.0 // [0.5 0.75 1.0 1.25 1.5]
+#define BLOCK_INTENSITY 1.0 // [0.7 1.0 1.3 1.6]
+#define LIGHT_WARMTH 1.0 // [0.0 0.5 1.0 1.5]
+#define AMBIENT_BRIGHTNESS 1.0 // [0.7 1.0 1.3]
+#define SHADOWS 1 // [0 1]
+#define SHADOW_FILTER 1 // [0 1 2]
+#define SHADOW_SOFTNESS 1.0 // [0.5 1.0 1.5 2.0]
+#define SHADOW_STRENGTH 0.8 // [0.4 0.6 0.8 1.0]
+const int shadowMapResolution = 2048; // [1024 2048 4096]
+const float shadowDistance = 80.0; // [48.0 80.0 128.0]
+const float ambientOcclusionLevel = 0.7; // [0.0 0.4 0.7 1.0]
 #endif
