@@ -4,6 +4,7 @@
 #include "/lib/math.glsl"
 #include "/lib/lighting.glsl"
 #include "/lib/material.glsl"
+#include "/lib/fog.glsl"
 #if WF_WATER == 1
 #include "/lib/water.glsl"
 #endif
@@ -32,8 +33,10 @@ void main() {
     vec3 linearColor = wfLinear(c.rgb);
 #if WF_WATER == 1
     if (wfMaterial == 100) {
-        gl_FragData[0] = wfWater(wfPosition, wfNormalize(wfNormal), wfColor.rgb,
-                               texture(gtexture, wfTex).rgb, wfLm);
+        vec4 water = wfWater(wfPosition, wfNormalize(wfNormal), wfColor.rgb,
+                             texture(gtexture, wfTex).rgb, wfLm);
+        water.rgb = wfFog(water.rgb, wfPosition);
+        gl_FragData[0] = water;
         return;
     }
 #endif
@@ -43,5 +46,5 @@ void main() {
     linearColor *= wfLight(wfPosition, normal, wfLm);
     linearColor += wfEmission(wfMaterial, wfLinear(c.rgb));
 #endif
-    gl_FragData[0] = vec4(linearColor, c.a);
+    gl_FragData[0] = vec4(wfFog(linearColor, wfPosition), c.a);
 }

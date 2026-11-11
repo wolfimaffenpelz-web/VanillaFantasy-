@@ -22,4 +22,8 @@ const float ambientOcclusionLevel = 0.7; // [0.0 0.4 0.7 1.0]
 #define WATER_TRANSPARENCY 1.0 // [0.7 1.0 1.3]
 #define WATER_SATURATION 1.0 // [0.7 1.0 1.3]
 #define UNDERWATER_CLARITY 1.0 // [0.7 1.0 1.4]
+#define CLOUDS 1 // [0 1]
+#define CLOUD_DENSITY 0.5 // [0.3 0.5 0.7]
+#define ATMOSPHERE 1.0 // [0.0 0.7 1.0 1.3]
+#define CELESTIAL_GLOW 0.3 // [0.0 0.3 0.6]
 #endif

@@ -1,12 +1,21 @@
 #include "/lib/options.glsl"
 #include "/lib/color.glsl"
 #include "/lib/uniforms.glsl"
+#include "/lib/math.glsl"
+#include "/lib/sky.glsl"
 uniform sampler2D depthtex0;
 uniform sampler2D colortex0;
 const int colortex0Format = RGBA16F;
 in vec2 wfTex;
 void main() {
     vec3 color = texture(colortex0, wfTex).rgb;
+#if WF_DIMENSION != 0
+    // Nether/End may not draw a sky dome: replace only untouched background.
+    if (texture(depthtex0, wfTex).r >= 0.999999 && isEyeInWater == 0) {
+        vec4 ray = gbufferProjectionInverse * vec4(wfTex * 2.0 - 1.0, 1.0, 1.0);
+        color = wfSky(wfNormalize(mat3(gbufferModelViewInverse) * ray.xyz));
+    }
+#endif
     if (isEyeInWater == 1) {
         float depth = texture(depthtex0, wfTex).r;
         vec4 view = gbufferProjectionInverse * vec4(wfTex * 2.0 - 1.0, depth * 2.0 - 1.0, 1.0);
