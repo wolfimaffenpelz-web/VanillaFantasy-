@@ -9,6 +9,17 @@ const int colortex0Format = RGBA16F;
 in vec2 wfTex;
 void main() {
     vec3 color = texture(colortex0, wfTex).rgb;
+#if BLOOM == 1
+    vec2 pixel = 1.0 / max(vec2(viewWidth, viewHeight), vec2(1.0));
+    vec3 bloom = vec3(0.0);
+    for (int i = 0; i < 8; ++i) {
+        float angle = float(i) * 0.7853981634;
+        vec2 offset = vec2(cos(angle), sin(angle)) * pixel * (4.0 + float(i % 2) * 3.0);
+        vec3 sampleColor = texture(colortex0, wfTex + offset).rgb;
+        bloom += sampleColor * max(wfLuma(sampleColor) - 0.9, 0.0) / max(wfLuma(sampleColor), 0.001);
+    }
+    color += bloom * (BLOOM_STRENGTH / 8.0);
+#endif
 #if WF_DIMENSION != 0
     // Nether/End may not draw a sky dome: replace only untouched background.
     if (texture(depthtex0, wfTex).r >= 0.999999 && isEyeInWater == 0) {

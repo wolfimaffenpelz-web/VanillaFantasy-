@@ -1,6 +1,7 @@
 #ifndef WF_LIGHTING
 #define WF_LIGHTING
 #include "/lib/shadow.glsl"
+#include "/lib/handlight.glsl"
 vec3 wfLight(vec3 position, vec3 normal, vec2 lm) {
     float block = wfBlockCurve(wfBlockLevel(lm.x)) * BLOCK_INTENSITY;
     float sky = wfBlockLevel(lm.y);
@@ -28,6 +29,7 @@ vec3 wfLight(vec3 position, vec3 normal, vec2 lm) {
     ambient += vec3(0.105, 0.115, 0.19);
 #endif
     // The floor is independent of blocklight; positive levels retain contrast.
-    return ambient * AMBIENT_BRIGHTNESS + block * blockColor + vec3(0.35 * nightVision);
+    return ambient * AMBIENT_BRIGHTNESS + block * blockColor + vec3(0.35 * nightVision)
+         + wfHandLight(position, normal);
 }
 #endif

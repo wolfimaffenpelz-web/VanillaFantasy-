@@ -5,6 +5,7 @@
 #include "/lib/lighting.glsl"
 #include "/lib/material.glsl"
 #include "/lib/fog.glsl"
+#include "/lib/wet.glsl"
 #if WF_WATER == 1
 #include "/lib/water.glsl"
 #endif
@@ -45,6 +46,7 @@ void main() {
     if (dot(normal, normal) < 0.1) normal = vec3(0.0, 1.0, 0.0);
     linearColor *= wfLight(wfPosition, normal, wfLm);
     linearColor += wfEmission(wfMaterial, wfLinear(c.rgb));
+    linearColor = wfWet(linearColor, wfPosition, normal, wfBlockLevel(wfLm.y));
 #endif
     gl_FragData[0] = vec4(wfFog(linearColor, wfPosition), c.a);
 }

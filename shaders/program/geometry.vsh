@@ -1,8 +1,10 @@
 #include "/lib/options.glsl"
 #include "/lib/uniforms.glsl"
 #include "/lib/math.glsl"
+#include "/lib/vegetation.glsl"
 #if WF_MATERIAL == 1
 in vec4 mc_Entity;
+in vec2 mc_midTexCoord;
 #endif
 out vec2 wfTex;
 out vec2 wfLm;
@@ -17,6 +19,9 @@ void main() {
     wfMaterial = 0;
 #if WF_MATERIAL == 1
     wfMaterial = int(mc_Entity.x + 0.5);
+    float top = float(gl_MultiTexCoord0.t < mc_midTexCoord.t);
+    wfPosition = wfPlantMotion(wfPosition, wfMaterial, top);
+    view = gbufferModelView * vec4(wfPosition, 1.0);
 #endif
     gl_Position = gl_ProjectionMatrix * view;
     wfTex = (gl_TextureMatrix[0] * gl_MultiTexCoord0).xy;
