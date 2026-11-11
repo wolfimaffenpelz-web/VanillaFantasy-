@@ -16,4 +16,10 @@
 const int shadowMapResolution = 2048; // [1024 2048 4096]
 const float shadowDistance = 80.0; // [48.0 80.0 128.0]
 const float ambientOcclusionLevel = 0.7; // [0.0 0.4 0.7 1.0]
+#define WATER_WAVES 1 // [0 1 2]
+#define WAVE_STRENGTH 0.6 // [0.0 0.3 0.6 1.0]
+#define WATER_REFLECTIONS 1 // [0 1 2]
+#define WATER_TRANSPARENCY 1.0 // [0.7 1.0 1.3]
+#define WATER_SATURATION 1.0 // [0.7 1.0 1.3]
+#define UNDERWATER_CLARITY 1.0 // [0.7 1.0 1.4]
 #endif
