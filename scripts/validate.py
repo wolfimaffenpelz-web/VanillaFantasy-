@@ -74,5 +74,29 @@ class Structure(unittest.TestCase):
                 self.assertFalse(any('..' in n.split('/') for n in names))
                 self.assertEqual(len(names), len(set(names)))
 
+    def test_dimension_wrappers(self):
+        from generate_entrypoints import expected
+        for path, text in expected().items():
+            self.assertEqual(path.read_text(), text, str(path))
+        entries = {p for p in SHADERS.rglob('*') if p.suffix in ('.vsh', '.fsh') and p.parent.name != 'program'}
+        self.assertEqual(entries, set(expected()), 'unexpected or obsolete entry point')
+
+    def test_languages(self):
+        locales = [properties(SHADERS / 'lang' / f'{locale}.lang') for locale in ('en_us', 'de_de')]
+        self.assertEqual(set(locales[0]), set(locales[1]))
+        for locale in locales:
+            for name in options():
+                self.assertIn('option.' + name, locale)
+                self.assertIn('option.' + name + '.comment', locale)
+            for key in properties(SHADERS / 'shaders.properties'):
+                if key.startswith('screen.') and not key.endswith('.columns'):
+                    self.assertIn(key, locale)
+
+    def test_fixed_profiles(self):
+        presets = profiles()
+        self.assertEqual(set(presets), {'Default', 'Performance', 'Balanced', 'Quality'})
+        for name in ('Performance', 'Balanced', 'Quality'):
+            self.assertEqual(set(presets[name]), set(options()))
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)
