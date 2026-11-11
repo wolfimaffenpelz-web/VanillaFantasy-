@@ -1,6 +1,6 @@
 # Liefer- und Abnahmestatus
 
-Stand: 11.11.2026, Version 0.1.0-alpha.2. Dies ist ein gebautes Alpha-Shaderpack
+Stand: 11.11.2026, Version 0.1.0-alpha.3. Dies ist ein gebautes Alpha-Shaderpack
 mit ausgeführten generischen Tests, **kein im Spiel verifiziertes Release**.
 
 | Bereich | Implementiert | Lokal geprüft | Minecraft |
@@ -19,6 +19,16 @@ mit ausgeführten generischen Tests, **kein im Spiel verifiziertes Release**.
 | Handlicht, beide Hände | experimentell/aus | GLSL/Abnahme/Farben | Uniforms/Glättung offen |
 | GitHub-Prüf-/Prerelease-Workflow | ja | Dateien erstellt | noch nicht auf GitHub ausgeführt |
 
+## Visuelle Überarbeitung Alpha 3
+
+Auf Basis des Benutzer-Spieltests von Alpha 2: größere Sonne/Mond, stärkeres
+Sonnenlicht und Schatten, sichtbarkeitsabhängige Sonnenblendung, satteres und
+weniger durchsichtiges Wasser, ruhigere Reflexe, kräftigere Wasserfälle sowie
+flächen-/tiefengeführte Biomglättung. Neue Renderregressionen sind vorhanden;
+der subjektive Eindruck und die MRT-/Blending-Integration von Alpha 3 müssen
+noch im Spiel geprüft werden. Die komplette manuelle Matrix gilt weiterhin
+nicht als abgenommen.
+
 ## Bekannte Einschränkungen
 
 - Minecraft-Start, Iris-Shadertransformation, Sodium-Attributbindung und die
@@ -32,6 +42,9 @@ mit ausgeführten generischen Tests, **kein im Spiel verifiziertes Release**.
   Spiel zu prüfen; es wird kein allgemeiner Transparenzfix behauptet.
 - Wasserwellen ändern nur Normalen. Keine Geometriewellen oder
   Wasserstandsänderungen. Wasserfälle bleiben geometrisch unverändert.
+- Biomglättung nutzt nur sichtbare Wasser-Nachbarn und kostet zwei zusätzliche
+  HDR-Buffer; sie ist im Performance-Profil aus. Verdeckte/außerhalb des Bilds
+  liegende Nachbarn und mehrere transparente Schichten bleiben Einschränkungen.
 - Biomtint stammt von gezeichneten Wasserflächen; Unterwasser-Fogtint von der
   Kameraposition. Eine separate Liste aller Gewässerbiome fehlt.
 - Handlicht kommt näherungsweise von der Kamera und kann durch Wände leuchten.

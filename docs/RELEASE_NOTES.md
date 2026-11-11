@@ -1,16 +1,16 @@
-Warm Fantasy Vanilla+ 0.1.0-alpha.2 ist ein eigenständiges Iris-Shaderpack mit
-warmer Vanilla+-Beleuchtung, Schatten, Biomwasser, prozeduralem Himmel und
-Qualitätsprofilen. ZIP direkt unter `shaderpacks` ablegen.
+Warm Fantasy Vanilla+ 0.1.0-alpha.3 überarbeitet die Darstellung nach dem
+Benutzer-Spieltest: deutlich größere Sonne/Mond, stärkeres Sonnenlicht und
+schärfere Schatten sowie eine abschaltbare warme Sonnenblendung mit Sichtprüfung.
 
-**Alpha:** gegen Iris 1.11.6, Zweig 26.3, anhand des Quellcodes entwickelt.
-Generische Mesa/OpenGL-Tests und synthetische Renderprüfungen bestehen;
-Minecraft-/Iris-Laufzeitkompatibilität ist noch nicht nachgewiesen.
-RTX-2080-Werte wurden nicht gemessen. Handlicht ist experimentell und aus.
-Keine SSR, volumetrischen Wolken oder farbige Weltlichtausbreitung.
+Wasser ist satter und deckender, mit ruhigeren und schwächeren Reflexen.
+Wasserfälle zeigen die native animierte Fließtextur kräftiger und erhalten
+keinen Himmels-Spiegelglanz. Tiefen-/flächengeführte Biomglättung läuft im
+vorhandenen Final-Pass: Balanced 2 Blöcke, Quality 4, Performance aus.
 
-Siehe INSTALLATION.md, TESTING.md und docs/STATUS.md. SHA256-Datei und
-generischer Testbericht liegen den Release-Artefakten bei.
+Nach dem ZIP-Wechsel einmal Balanced anwenden. Die neuen Optionen stehen im
+Himmel-/Wassermenü. Bei Bedarf zusätzlich die native Biomvermischung einschalten.
 
-Behebt den gemeldeten Startfehler `final.fsh: undefined variable RGBA16F`.
-Die Formatdirektive ist nun korrekt als Iris-Metadatum kommentiert; die
-Compile-Tests ergänzen keine künstlichen Formatkonstanten mehr.
+Die RGBA16F-Korrektur aus Alpha 2 bleibt enthalten. Generische GPU-Tests und
+synthetische Renderprüfungen bestehen; die visuelle Überarbeitung und die
+Metadaten-Blending-Integration benötigen einen neuen Minecraft-Spieltest.
+RTX-2080-Werte sind ungemessen. Keine SSR oder farbige Weltlichtausbreitung.

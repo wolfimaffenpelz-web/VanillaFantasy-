@@ -60,6 +60,16 @@ Numerik-/Renderprüfungen verwenden den tatsächlichen GLSL-Code:
 - Wolken-/Himmelswerte am Horizont und auf Wolkenhöhe, Regen, Unterwasserabsorption.
 - Echte Terrain-Einstiegspunkte: Projektion, Texturkoordinaten, Farben, Alpha-Cutout.
 - Final-Pass in 2560 × 1440: endliche, begrenzte, monotone HDR-Rampe.
+- Sonnengröße und direkter Tageslichtkontrast; tatsächlicher Final-Pass mit
+  sichtbarer/verdeckter Sonne, Regen, Blick weg von der Sonne, Abschaltung und
+  untergetauchter Kamera. Die Tests prüfen die Blend-Abschattung und den
+  Helligkeitsunterschied, nicht das subjektive Blendempfinden im Spiel.
+- Wasser von oben: deutlich höhere Deckkraft und gesättigte Farbe. Wasserfälle:
+  stärkere Texturmodulation und keine Himmelsglanzlichter auf Seitenflächen.
+- Echte Water-Einstiegspunkte mit drei RGBA16F-Renderzielen und unabhängigen
+  Blendzuständen: Farb-/Antwortbuffer korrekt geschrieben; Biomfarbsprung im
+  synthetischen Test um mehr als 65% vermindert, konstante Farbfelder unverändert,
+  keine Korrektur auf Nicht-Wasser oder Vermischung anderer Tiefenebenen.
 
 Es gibt keine Minecraft-Referenzbilder. Deshalb keine behaupteten visuellen
 Vergleichstests und keine aus synthetischen Bildern abgeleitete Spielqualität.
@@ -103,6 +113,19 @@ Position und Versionen dokumentieren. Vor weiterem Effektaufbau zuerst
 Integrationsfehler beheben und die betroffenen Zeilen wiederholen.
 
 ## RTX-2080-Benchmark — noch nicht gemessen
+
+Vor der Performance-Messung Alpha 3 im Spiel prüfen: dieselbe Szene gegen Alpha 2
+vergleichen, einmal Balanced neu anwenden. Sonne hinter einem Gebäude/Blättern,
+am Bildrand, bei Regen und durch Glas betrachten; Größenoptionen und alle
+Mondphasen prüfen. Wasser von oben und in flachem Winkel, tiefe/seichte Gewässer,
+Wasserfälle, native Biomvermischung aus/an sowie Shader-Biomglättung 0/2/4 prüfen.
+Auf Farbflackern bei Kamerabewegung, Ufer, getrennte Wasserhöhen und mehrere
+Glas-/Wasserschichten achten. Die neue MRT-/Blend-Konfiguration wurde generisch,
+jedoch nicht im hiesigen Minecraft-Renderer geprüft.
+
+Biomglättung kostet zusätzliche Texturzugriffe und zwei HDR-Buffer, verwendet
+jedoch den bestehenden Final-Pass. Bei der Messung diese Funktion separat
+abschalten, um ihren Anteil einzugrenzen; das Performance-Profil deaktiviert sie.
 
 1. 2560 × 1440, gleiche Versionen, gleicher FOV. 16 und 24 Chunks getrennt;
    Simulationsdistanz dokumentieren. Notebook-/Energiesparmodi ausschließen.

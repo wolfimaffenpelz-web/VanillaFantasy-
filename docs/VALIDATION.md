@@ -1,6 +1,6 @@
 # Lokaler Testbericht
 
-Datum: 11.11.2026. Version: 0.1.0-alpha.2. Recherchierte Zielbasis:
+Datum: 11.11.2026. Version: 0.1.0-alpha.3. Recherchierte Zielbasis:
 Minecraft 26.3 / Iris 1.11.6, Commit
 `671a5c87747d33983d7ed659461a64f46dfcb1f0` / Sodium 0.9.2+mc26.3.
 
@@ -8,7 +8,7 @@ Minecraft 26.3 / Iris 1.11.6, Commit
 
 - Python 3.12.14; PyOpenGL 3.1.10 und NumPy 2.5.4.
 - 12 automatisierte Struktur-/Konfigurations-/Build-Testfälle.
-- 672 echte generische Compile-/Link-Prüfungen: 42 Programmpaare in 16
+- 756 echte generische Compile-/Link-Prüfungen: 42 Programmpaare in 18
   Konfigurationen, einschließlich aller Dimensionen und Presets.
 - GLSL-Numerik-/Renderprüfungen für Lichtlevel, Schattenvergleich, Wasser,
   Pflanzenverankerung, Handlicht, Mondphasen, Wolken-/Regenrandfälle und
@@ -39,13 +39,33 @@ Regressionstest prüft ihren Erhalt für Iris und ihre Entfernung aus dem für
 GLSL ausführbaren Code in allen drei Dimensionen. Die vollständige Compile-/
 Renderprüfung läuft ohne zusätzliche Formatdefinitionen.
 
+## Visuelle Regression Alpha 3
+
+- Sonnendurchmesser im Standard fünffach gegenüber Alpha 2; einstellbare Größe
+  anhand gerenderter HDR-Discfläche geprüft. Direkter Tageslichtkontrast ist höher.
+- Echte Final-Pass-Prüfung: sichtbare Sonne erzeugt einen deutlichen warmen
+  Lichtschleier; Terrain-Verdeckung, Regen, Blick weg, Abschaltung und
+  Unterwasserkamera verhindern ihn in den geprüften Fixtures.
+- Wasser von oben mit höherer Deckkraft und kräftigerer Farbe. Auf Wasserfall-
+  Seiten reagiert die animierte Textur deutlich stärker; keine Spiegelglanzlichter.
+- Echte Water-Einstiegspunkte für horizontale Flächen und beide Wasserfall-Achsen in drei RGBA16F-Ziele gerendert, Farbziel mit
+  Straight-Alpha und Metadaten ohne Blending. Die diffuse Biomfarbkorrektur
+  vermindert den Farbsprung im synthetischen Test um mehr als 65%, erhält
+  konstante Tintfelder, lässt Nicht-Wasser unverändert und verwirft andere
+  Tiefenebenen. Die Abschaltung entfernt die aktiven Metadaten-Sampler.
+- Kein zusätzlicher Vollbildpass. Die zwei zusätzlichen HDR-Buffer und die
+  Nachbarsamples kosten dennoch Speicher/Bandbreite; keine daraus abgeleitete
+  Aussage über die RTX-2080-Bildrate.
+
 ## Aussagegrenzen
 
 **Nicht ausgeführt:** Iris-AST-Transformation, Minecraft-Start, Sodium-
 Attributbindung im Spiel, Blend-/Framebufferintegration im echten Renderer,
 visuelle Referenzvergleiche, Nvidia-Treibertest, RTX-2080-Benchmark sowie
-GitHub-Actions-Ausführung. Die recherchierte Versionskombination ist damit
-noch nicht als lauffähig bestätigt. Minecraft-Folgeversionen sind ungetestet.
+GitHub-Actions-Ausführung. Benutzerfeedback aus einem Spieltest von Alpha 2 liegt vor. Die neue
+MRT-/Blend-Integration, Sonnenblendung und subjektive Darstellung von Alpha 3
+wurden hier noch nicht in Minecraft geprüft. Eine vollständige Abnahme der
+Versionskombination sowie Minecraft-Folgeversionen bleibt offen.
 
 Die Auflösung des synthetischen Tests sagt nichts über die Spielbildrate aus.
 Es wurden keine FPS-Werte erfunden oder aus llvmpipe abgeleitet. Alle Zeilen der
@@ -53,5 +73,5 @@ manuellen Matrix in TESTING.md bleiben offen.
 
 ## Gebautes Artefakt
 
-`Warm-Fantasy-Vanilla-Plus-0.1.0-alpha.2.zip`, 64221 Bytes, 114 ZIP-Einträge.
-SHA256: `3198dcac7a2a091771abe0ac3dd999a66133290acdfd2bb0ad1687e7882c7a8f`.
+`Warm-Fantasy-Vanilla-Plus-0.1.0-alpha.3.zip`, 75275 Bytes, 116 ZIP-Einträge.
+SHA256: `d81a898e22a622eb8e9335dc87d95620a847e13203a4216b38ea09848ed31395`.

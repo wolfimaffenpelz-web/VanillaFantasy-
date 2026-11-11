@@ -22,7 +22,7 @@ def expected():
                     f'#version 330 compatibility\n#define WF_DIMENSION {dimension}\n'
                     + flags + f'#include "/program/geometry.{stage}"\n')
         for name, vert, frag in (
-            ('final', 'fullscreen', 'final'), ('shadow','shadow','shadow'),
+            ('final', 'final', 'final'), ('shadow','shadow','shadow'),
             ('shadow_water','shadow','shadow_water'),
             ('gbuffers_skybasic','sky','sky'),
             ('gbuffers_skytextured','sky','discard')):

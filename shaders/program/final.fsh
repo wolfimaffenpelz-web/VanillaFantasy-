@@ -3,14 +3,23 @@
 #include "/lib/uniforms.glsl"
 #include "/lib/math.glsl"
 #include "/lib/sky.glsl"
-uniform sampler2D depthtex0;
+#include "/lib/glare.glsl"
+#include "/lib/water_blend.glsl"
 uniform sampler2D colortex0;
 /* Iris metadata: format names are not GLSL constants.
 const int colortex0Format = RGBA16F;
 */
+#if WATER_BIOME_BLEND > 0
+/* Iris metadata; water tint and response must not be alpha-blended.
+const int colortex1Format = RGBA16F;
+const int colortex2Format = RGBA16F;
+*/
+const vec4 colortex1ClearColor = vec4(0.0, 0.0, 0.0, 0.0);
+const vec4 colortex2ClearColor = vec4(0.0, 0.0, 0.0, 0.0);
+#endif
 in vec2 wfTex;
 void main() {
-    vec3 color = texture(colortex0, wfTex).rgb;
+    vec3 color = wfBlendWaterBiomes(texture(colortex0, wfTex).rgb, wfTex);
 #if BLOOM == 1
     vec2 pixel = 1.0 / max(vec2(viewWidth, viewHeight), vec2(1.0));
     vec3 bloom = vec3(0.0);
@@ -38,5 +47,8 @@ void main() {
         vec3 underwaterTint = max(wfLinear(fogColor), vec3(0.015, 0.035, 0.040));
         color = color * transmission + underwaterTint * (1.0 - transmission);
     }
+    vec4 viewRay = gbufferProjectionInverse * vec4(wfTex * 2.0 - 1.0, 1.0, 1.0);
+    vec3 worldRay = wfNormalize(mat3(gbufferModelViewInverse) * viewRay.xyz);
+    color = wfSunGlare(color, worldRay);
     gl_FragColor = vec4(wfDisplay(color), 1.0);
 }

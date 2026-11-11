@@ -6,7 +6,7 @@
    Builds installieren. Die geprüfte Quellenbasis nennt Iris 1.11.6, Fabric
    Loader 0.19.3 und Sodium 0.9.2+mc26.3. Das bestätigt keine Veröffentlichung
    genau dieser Binärpakete. Andere Versionskombinationen sind ungetestet.
-3. `Warm-Fantasy-Vanilla-Plus-0.1.0-alpha.2.zip` **unentpackt** in den Ordner
+3. `Warm-Fantasy-Vanilla-Plus-0.1.0-alpha.3.zip` **unentpackt** in den Ordner
    `shaderpacks` des gewählten Spielprofils kopieren. Standardpfade:
    Windows `%APPDATA%\.minecraft\shaderpacks`, Linux
    `~/.minecraft/shaderpacks`, macOS
@@ -17,13 +17,24 @@
 6. Spielstart und erste Szene nach [TESTING.md](TESTING.md) prüfen. Das Pack ist
    eine Alpha ohne hier bestätigten Minecraft-Laufzeittest.
 
+## Wechsel von Alpha 2 auf Alpha 3
+
+Die neue ZIP auswählen und einmal **Balanced** anwenden, damit vorher
+abgespeicherte Wasser-/Schattenwerte die neuen Standards nicht überlagern.
+Sonnen-/Mondgröße und Sonnenblendung stehen im Himmelmenü, die Wasser-
+Biomglättung im Wassermenü. Wer weniger Deckkraft möchte, erhöht dort die
+Wassertransparenz. Die native Minecraft/Sodium-Biomvermischung kann zusätzlich
+auf etwa 5×5 oder 7×7 gestellt werden; der Shader verändert diese Spieleinstellung
+nicht. Die Shaderglättung benötigt sichtbare Nachbarn und ersetzt keine globale
+Biomfarbabfrage außerhalb des Bildschirms.
+
 ## Custom und gespeicherte Optionen
 
 Das Pack definiert drei Presets. Abweichende Einstellungen kennzeichnet Iris
 nativ als **Custom**; es gibt kein viertes festes Preset und keine zusätzliche
 Konfigurationsmod. Im geprüften Iris-Quellstand speichert Iris die Optionen als
 `shaderpacks/<Packdateiname>.txt`, bei einer ZIP also beispielsweise
-`Warm-Fantasy-Vanilla-Plus-0.1.0-alpha.2.zip.txt` neben der ZIP. Ein umbenanntes
+`Warm-Fantasy-Vanilla-Plus-0.1.0-alpha.3.zip.txt` neben der ZIP. Ein umbenanntes
 Release kann deshalb andere gespeicherte Optionen verwenden.
 
 Alle Optionen gehören zu jedem Preset. Ein Presetwechsel setzt auch individuelle
