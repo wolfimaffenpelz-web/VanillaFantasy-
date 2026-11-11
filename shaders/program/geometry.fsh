@@ -10,7 +10,6 @@
 #include "/lib/water.glsl"
 #endif
 uniform sampler2D gtexture;
-uniform sampler2D lightmap;
 uniform float alphaTestRef;
 #if WF_ENTITY == 1
 uniform vec4 entityColor;
@@ -24,8 +23,10 @@ flat in int wfMaterial;
 /* DRAWBUFFERS:0 */
 void main() {
     vec4 c = wfColor;
+    vec4 surfaceTexture = vec4(1.0);
 #if WF_TEXTURED == 1
-    c *= texture(gtexture, wfTex);
+    surfaceTexture = texture(gtexture, wfTex);
+    c *= surfaceTexture;
 #endif
     if (c.a < alphaTestRef) discard;
 #if WF_ENTITY == 1
@@ -35,7 +36,7 @@ void main() {
 #if WF_WATER == 1
     if (wfMaterial == 100) {
         vec4 water = wfWater(wfPosition, wfNormalize(wfNormal), wfColor.rgb,
-                             texture(gtexture, wfTex).rgb, wfLm);
+                             surfaceTexture.rgb, wfLm);
         water.rgb = wfFog(water.rgb, wfPosition);
         gl_FragData[0] = water;
         return;

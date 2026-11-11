@@ -55,8 +55,7 @@ def expand(path, stack=()):
         return expand(child, stack + (path,))
     return INCLUDE.sub(inc, source)
 
-def source(path, overrides=None):
-    text = expand(path)
+def prepare(text, overrides=None):
     for name, value in (overrides or {}).items():
         text = re.sub(r'(^#define\s+' + re.escape(name) + r'\s+)[-\d.]+',
                       lambda m: m[1] + str(value), text, flags=re.M)
@@ -66,3 +65,6 @@ def source(path, overrides=None):
     # only; no renderer attributes, samplers or uniforms are emulated by it.
     return text.replace('#version 330 compatibility',
                         '#version 330 compatibility\n#define RGBA16F 34842', 1)
+
+def source(path, overrides=None):
+    return prepare(expand(path), overrides)

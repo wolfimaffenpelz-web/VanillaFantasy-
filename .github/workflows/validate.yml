@@ -1,0 +1,38 @@
+name: Validate shaderpack
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    env:
+      EGL_PLATFORM: surfaceless
+      PYOPENGL_PLATFORM: egl
+      LIBGL_ALWAYS_SOFTWARE: '1'
+      MESA_SHADER_CACHE_DISABLE: 'true'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install test dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libegl1 libegl-mesa0 libgl1-mesa-dri
+          python -m pip install -r requirements-test.txt
+      - name: Structure, configuration and deterministic ZIP tests
+        run: python scripts/validate.py
+      - name: Generic OpenGL compile, link and synthetic rendering
+        run: python scripts/gl_test.py --report-dir work/test-report
+      - name: Build installable ZIP
+        run: python scripts/build.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: shaderpack-and-generic-test-report
+          path: |
+            dist/*.zip
+            dist/*.sha256
+            work/test-report/*.json

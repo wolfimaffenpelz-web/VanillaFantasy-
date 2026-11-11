@@ -1,0 +1,36 @@
+{
+  "generic_gl": "4.5 (Compatibility Profile) Mesa 25.0.7-2+deb13u1",
+  "renderer": "llvmpipe (LLVM 19.1.7, 256 bits)",
+  "program_variants": 672,
+  "configurations": [
+    "Default",
+    "Performance",
+    "Balanced",
+    "Quality",
+    "AllOff",
+    "AllOn",
+    "Minimum",
+    "Maximum",
+    "Toggle_SHADOWS",
+    "Toggle_BLOOM",
+    "Toggle_VEGETATION",
+    "Toggle_WET_SURFACES",
+    "Toggle_HAND_LIGHT",
+    "Toggle_CLOUDS",
+    "Toggle_WATER_WAVES",
+    "Toggle_WATER_REFLECTIONS"
+  ],
+  "dimensions": [
+    "Overworld",
+    "Nether",
+    "End"
+  ],
+  "synthetic_output_resolution": [
+    2560,
+    1440
+  ],
+  "numeric_tests": "passed",
+  "iris_transformer_tested": false,
+  "minecraft_runtime_tested": false,
+  "rtx2080_benchmarked": false
+}

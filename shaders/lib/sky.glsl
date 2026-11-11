@@ -36,12 +36,13 @@ vec3 wfCelestial(vec3 color, vec3 direction) {
     vec3 up = wfNormalize(cross(right, moonDir));
     vec2 disc = vec2(dot(direction, right), dot(direction, up)) / moonRadius;
     float r2 = dot(disc, disc);
+    float moonAA = max(fwidth(r2), 0.001);
     if (r2 < 1.05 && moonDot > 0.0) {
         float phase = float(moonPhase) * 0.7853981634;
         vec3 sphereNormal = vec3(disc, sqrt(max(1.0 - r2, 0.0)));
         float light = dot(sphereNormal, vec3(sin(phase), 0.0, cos(phase)));
         float lit = smoothstep(-0.025, 0.025, light);
-        float edge = 1.0 - smoothstep(1.0 - max(fwidth(r2), 0.001), 1.0, r2);
+        float edge = 1.0 - smoothstep(1.0 - moonAA, 1.0, r2);
         vec3 moon = mix(vec3(0.016, 0.021, 0.034), vec3(0.47, 0.57, 0.75), lit);
         color = mix(color, moon, edge * (1.0 - rainStrength));
     }

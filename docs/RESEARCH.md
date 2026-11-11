@@ -33,6 +33,9 @@ Die folgenden Pfade beziehen sich auf `common/src/main/java/net/irisshaders/iris
 | Handlichtglättung | `parsing/IrisFunctions.java`, `parsing/SmoothFloat.java` | smooth(id, target, fadeUpTime, fadeDownTime) |
 | Material-IDs | `shaderpack/IdMap.java` | block.properties / item.properties, mc_Entity.x |
 | Custom-Erkennung | `shaderpack/ShaderPack.java` | getProfileName() liefert Custom, wenn kein Preset passt |
+| Optionsspeicherung | `Iris.java` | shaderpacks/<Packdateiname>.txt |
+| 26.3-Tiefenkonvention | `mixin/MixinLevelRenderer.java`, `helpers/MatrixUtils.java`, `pipeline/transform/transformer/DepthTransformer.java` | Iris stellt Forward-Z-Matrizen und transformierte Tiefenreads bereit; keine eigene Reverse-Z-Umkehr im Pack |
+| Blockitem-Emission | `common/src/api/java/net/irisshaders/iris/api/v0/item/IrisItemLightProvider.java` (ab Repository-Root) | Blockzustand liefert Emissionswert, andere Items standardmäßig 0 |
 
 Quelllinks: [Iris-Dateibaum](https://github.com/IrisShaders/Iris/tree/671a5c87747d33983d7ed659461a64f46dfcb1f0/common/src/main/java/net/irisshaders/iris),
 [ShaderDoc Uniforms](https://github.com/IrisShaders/ShaderDoc/blob/ddf473726710c6504422d192784c1652f8aece98/uniforms.md),
