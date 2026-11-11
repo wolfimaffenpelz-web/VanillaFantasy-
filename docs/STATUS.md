@@ -1,6 +1,6 @@
 # Liefer- und Abnahmestatus
 
-Stand: 11.11.2026, Version 0.1.0-alpha.1. Dies ist ein gebautes Alpha-Shaderpack
+Stand: 11.11.2026, Version 0.1.0-alpha.2. Dies ist ein gebautes Alpha-Shaderpack
 mit ausgeführten generischen Tests, **kein im Spiel verifiziertes Release**.
 
 | Bereich | Implementiert | Lokal geprüft | Minecraft |

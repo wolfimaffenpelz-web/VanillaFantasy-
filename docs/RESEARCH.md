@@ -43,6 +43,13 @@ Quelllinks: [Iris-Dateibaum](https://github.com/IrisShaders/Iris/tree/671a5c8774
 
 ## Grenzen vor der Implementierung
 
+Formatnamen wie `RGBA16F` sind keine GLSL-Konstanten. Die `colortex0Format`-
+Direktive steht in einem Blockkommentar: Iris liest die Direktivenzeile,
+während der GLSL-Compiler den Kommentar ignoriert. Geprüft gegen
+[ShaderDoc Const Directives](https://github.com/IrisShaders/ShaderDoc/blob/ddf473726710c6504422d192784c1652f8aece98/const-directives.md)
+und `ConstDirectiveParser.findDirectives` / `PackRenderTargetDirectives` am
+oben genannten Iris-Commit. Keine Symboldefinition im Test-Präprozessor.
+
 Vanilla-Lichtkoordinaten enthalten Block- und Himmelslicht, keine Liste der
 umliegenden Lichtquellen. Eine Oberflächen-ID identifiziert das gezeichnete
 Material, nicht den Ursprung des ankommenden Lichts. Deshalb warme Vanilla-

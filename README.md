@@ -1,7 +1,7 @@
 # Warm Fantasy Vanilla+
 
 Eigenständiges Iris-Shaderpack für eine warme, gut lesbare Vanilla+-Spielwelt.
-Ziel: Minecraft Java 26.3, Fabric, Iris und Sodium. Entwicklungsstand: **0.1.0-alpha.1**.
+Ziel: Minecraft Java 26.3, Fabric, Iris und Sodium. Entwicklungsstand: **0.1.0-alpha.2**.
 
 Die Schnittstelle wird gegen Iris **1.11.6**, Zweig `26.3`, Revision
 `671a5c87747d33983d7ed659461a64f46dfcb1f0` entwickelt. Eine im Spiel

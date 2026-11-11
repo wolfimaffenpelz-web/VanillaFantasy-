@@ -3,10 +3,23 @@ import re
 import tempfile
 import unittest
 from zipfile import ZipFile
-from common import SHADERS, ROOT, expand, options, profiles, properties, DEFINE, CONST
+from common import SHADERS, ROOT, expand, source, options, profiles, properties, DEFINE, CONST
 from build import build
 
 class Structure(unittest.TestCase):
+    def test_format_directive_preserved_without_glsl_format_symbol(self):
+        # Iris scans directive lines inside block comments. The GPU compiler
+        # must never need a test-only declaration of RGBA16F to compile final.
+        for directory in ('', 'world-1', 'world1'):
+            path=SHADERS/directory/'final.fsh'
+            text=source(path)
+            comments=re.findall(r'/\*(.*?)\*/',text,re.S)
+            directive_lines=[line.strip() for comment in comments for line in comment.splitlines()]
+            self.assertEqual(directive_lines.count('const int colortex0Format = RGBA16F;'),1)
+            executable=re.sub(r'/\*.*?\*/|//[^\n]*','',text,flags=re.S)
+            self.assertNotRegex(executable,r'\bRGBA16F\b')
+            self.assertEqual(text,expand(path),'compile helper must not inject format constants')
+
     def test_no_guard_flag_collisions_or_unused_modules(self):
         shader_files=[p for p in SHADERS.rglob('*') if p.suffix in ('.vsh','.fsh','.glsl')]
         guards=set()

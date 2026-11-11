@@ -1,7 +1,7 @@
 """Small, auditable subset of Iris source expansion for generic GL tests.
 
 This is NOT Iris's AST transformer or a replacement for a game test.
-Only include expansion, numeric option substitution and format tokens are done.
+Only include expansion and numeric option substitution are done.
 """
 from pathlib import Path
 import re
@@ -61,10 +61,7 @@ def prepare(text, overrides=None):
                       lambda m: m[1] + str(value), text, flags=re.M)
         text = re.sub(r'(^const\s+(?:int|float)\s+' + re.escape(name) + r'\s*=\s*)[-\d.]+',
                       lambda m: m[1] + str(value), text, flags=re.M)
-    # Iris supplies symbolic internal-format tokens. This test supplies the token
-    # only; no renderer attributes, samplers or uniforms are emulated by it.
-    return text.replace('#version 330 compatibility',
-                        '#version 330 compatibility\n#define RGBA16F 34842', 1)
+    return text
 
 def source(path, overrides=None):
     return prepare(expand(path), overrides)

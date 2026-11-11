@@ -5,7 +5,9 @@
 #include "/lib/sky.glsl"
 uniform sampler2D depthtex0;
 uniform sampler2D colortex0;
+/* Iris metadata: format names are not GLSL constants.
 const int colortex0Format = RGBA16F;
+*/
 in vec2 wfTex;
 void main() {
     vec3 color = texture(colortex0, wfTex).rgb;
